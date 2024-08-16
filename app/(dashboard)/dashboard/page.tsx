@@ -9,7 +9,7 @@ export default function Dashboard() {
 
     return (
         <div className="w-screen h-screen bg-gradient-to-r from-gray-900 to-gray-700 flex items-center justify-center">
-            <div className="w-full max-w-md mx-4 mr-96"> 
+            <div className="w-full max-w-md mx-4 mr-96 mb-80"> 
                 <div className="text-5xl text-green-300 pt-8 mb-8 font-bold text-center">
                     Entries:
                 </div>
