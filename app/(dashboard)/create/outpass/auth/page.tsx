@@ -44,6 +44,7 @@ export default function Card({ payload }: { payload: any }) {
                             <p><strong>User ID:</strong> {outpass.userId}</p>
                             <p><strong>Valid:</strong> {outpass?.valid ? "Yes" : "No"}</p>
                             <p><strong>Created at:</strong> {new Date(outpass.StartTime).toLocaleString()}</p>
+                            <p><strong>Expires at:</strong> {new Date(outpass.StartTime).toLocaleDateString()} , 8:00 PM</p>
                         </div>
                     </>
                 ) : (
