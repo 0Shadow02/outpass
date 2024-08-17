@@ -2,6 +2,8 @@
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import  Card  from "../today/page";
+import { queryObjects } from "v8";
 
 export default function Dashboard() {
     const [rollnumber, setRollnumber] = useState("");
@@ -27,10 +29,16 @@ export default function Dashboard() {
                     />
                     <button
                         onClick={async () => {
-                            await axios.post("", {
-                                rollnumber
-                            });
-                            navigate.push("/today");
+                            try {
+                                const response = await axios.post("http://localhost:3000/api/user", { rollnumber });
+                                navigate.push(`/today?${response.data.outpass.id}`);
+                                
+                            } catch (error) {
+                                console.error("Error fetching outpass:", error);
+                            }
+                            
+                        
+                            
                         }}
                         type="button"
                         className="w-full text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-md px-5 py-2.5"

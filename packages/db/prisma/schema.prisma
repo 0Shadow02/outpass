@@ -22,19 +22,18 @@ model Admin {
 
 model Hostellers {
   id           Int     @id @default(autoincrement())
-  Fname      String
-  Lname      String
-  Rollno     String
-  valid      Boolean @default(false)
+  Name         String     @unique
+  Rollno       String
   outpass     outpass[]
   
 }
 
 model outpass {
   id         Int     @id @default(autoincrement())  
-  name       String
+  Name       String
   rollNo     String
   userId     Int 
+  valid      Boolean @default(false)
   StartTime  DateTime
   hostellers Hostellers @relation(fields: [userId], references: [id])    
 }

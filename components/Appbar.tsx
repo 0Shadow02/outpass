@@ -4,7 +4,7 @@ import { useState } from "react";
 
 export const Appbar = () => {
   return (
-    <div className="border-b border-gray-600 flex justify-between bg-gray-900 py-2 px-10">
+    <div className="b flex justify-between bg-gray-900 py-2 px-10">
       <div className="text-2xl font-semibold text-green-300">OutPass</div>
       <div className="flex">
         <Sidebar />
