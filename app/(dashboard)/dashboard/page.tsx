@@ -29,9 +29,7 @@ export default function Dashboard() {
                     <button
                         onClick={async () => {
                             try {
-                                const response = await axios.post("http://localhost:3000/api/user", { rollnumber });
-                                navigate.push(`/create/outpass/auth?id=${response.data.outpass.id}`);
-                                
+                                navigate.push(`pass/?rollNo=${rollnumber}`);
                             } catch (error) {
                                 console.error("Error fetching outpass:", error);
                             }

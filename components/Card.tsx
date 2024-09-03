@@ -1,42 +1,48 @@
-// "use client";
 
-// import axios from "axios";
-// import { useEffect, useState } from "react";
+"use client";
 
-// interface Outpass {
-//     Name: string;
-//     rollNo: string;
-//     userId: string;
-//     valid: string;
-//     StartTime: string;
-// }
+import axios from "axios";
+import { useEffect, useState } from "react";
 
-// export const Card = ({ rollNumber }: { rollNumber: string }) => {
-//     const [outpass, setOutpass] = useState<Outpass | null>(null);
+interface Outpass {
+    Name: string;
+    rollNo: string;
+    userId: string;
+    valid: string;
+    StartTime: string;
+}
 
-//         const fetchOutpass = async () => {
-//             try {
-//                 const response = await axios.post("http://localhost:3000/api/user", { rollNumber });
-//                 setOutpass(response.data);
-//             } catch (error) {
-//                 console.error("Error fetching outpass:", error);
-//             }
-//         };
+export const Card = ({ rollNumber }: { rollNumber: string } ,{type}:{type:"outpass"|"homepass"}) => {
+    const [user,setUser] = useState({})
+        const fetchUserDetails = async () => {
+            try {
+                const response = await axios.get(`http://localhost:3000/api/user`, {  
+                    headers: {  
+                        rollNumber: rollNumber  
+                    }  
+                    
+                })
+                setUser(response)
+            } catch (error) {
+                console.error("Error fetching UserDetails:", error);
+            }
+        };
 
-//         fetchOutpass();
+        fetchUserDetails();
   
 
-//     if (!outpass) {
-//         return <div>Loading...</div>;
-//     }
+    if (!user) {
+        return <div>Loading...</div>;
+    }
 
-//     return (
-//         <div>
-//             Name: {outpass.Name},
-//             Rollno:{outpass.rollNo}
-//             userId:{outpass.userId},
-//             valid:{outpass.valid},
-//             Created at:{outpass.StartTime}
-//         </div>
-//     );
-// };
+    return (
+        <div>
+            <div>
+
+            </div>
+            <button>
+                Create
+            </button>
+        </div>
+    );
+};

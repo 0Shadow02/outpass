@@ -46,3 +46,24 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Error: " + error }, { status: 500 });
   }
 }
+export async function GET(req:NextRequest){
+  const rollNo = req.headers.get('rollNumber') || ""
+  try {
+    const user = await prisma.hostellers.findFirst({
+      where:{
+        Rollno:rollNo
+      }
+    })
+    if (!user) {
+      return NextResponse.json("Hosteller doesn't exist")
+    }
+  } catch (error) {
+    return NextResponse.json({ error: "Error: " + error }, { status: 500 });
+  }
+  const user = await prisma.hostellers.findFirst({
+    where:{
+      Rollno:rollNo
+    }
+  })
+  return NextResponse.json(user)
+}
