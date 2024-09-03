@@ -1,14 +1,47 @@
-export const InDate=()=>{
-    return <div>
-        
-<div className="relative max-w-sm">
-  <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-     <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-        <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
-      </svg>
-  </div>
-  <input id="datepicker-autohide" datepicker datepicker-autohide type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date" />
-</div>
+import React, { useState } from 'react';
 
-    </div>
-}
+const CustomDatePicker = () => {
+    const [selectedDate, setSelectedDate] = useState(new Date());
+    const [isOpen, setIsOpen] = useState(false);
+
+    const toggleCalendar = () => {
+        setIsOpen(!isOpen);
+    };
+
+    const handleDateChange = (event: { target: { value: string | number | Date; }; }) => {
+        setSelectedDate(new Date(event.target.value));
+        setIsOpen(false); // 
+    };
+
+    const formatDate = (date: Date) => {
+        return date.toISOString().split('T')[0]; 
+    };
+
+    return (
+        <div className="relative">
+            <input
+                type="text"
+                value={formatDate(selectedDate)}
+                readOnly
+                onClick={toggleCalendar}
+                className="border rounded-lg p-3 w-full bg-gray-800 text-white cursor-pointer transition duration-200 ease-in-out hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Select a date"
+            />
+            {isOpen && (
+                <div
+                    className="absolute z-10 bg-gray-700 border border-gray-600 rounded-lg shadow-lg mt-1 p-2 transition-transform duration-300 ease-in-out transform origin-top scale-y-0"
+                    style={{ transform: isOpen ? 'scaleY(1)' : 'scaleY(0)' }}
+                >
+                    <input
+                        type="date"
+                        value={formatDate(selectedDate)}
+                        onChange={handleDateChange}
+                        className="p-2 bg-gray-800 text-white rounded-lg transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                </div>
+            )}
+        </div>
+    );
+};
+
+export default CustomDatePicker;

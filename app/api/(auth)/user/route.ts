@@ -36,6 +36,7 @@ export async function POST(req: NextRequest) {
           Name: user.Name,
           StartTime: new Date(),
           valid: true,
+          Place:"Market"
         },
       });
       return NextResponse.json({ outpass, msg: "OutPass created!" });

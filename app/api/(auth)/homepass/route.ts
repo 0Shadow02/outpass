@@ -16,11 +16,10 @@ export default prisma
 
 if (process.env.NODE_ENV !== 'production') globalThis.prismaGlobal = prisma
 
-
-
 export async function POST(req:NextRequest){
     const { searchParams } = new URL(req.url);
     const rollNo = searchParams.get('rollNo')||"";
+    const InDate:Date= await req.json()
      try {
         const user = await prisma.hostellers.findFirst({
           where: {
@@ -29,17 +28,18 @@ export async function POST(req:NextRequest){
         });
     
         if (user) {
-          const outpass = await prisma.outpass.create({
+          const outpass = await prisma.homepass.create({
             data: {
               userId: user.id,
               rollNo: user.Rollno,
               Name: user.Name,
               StartTime: new Date(),
               valid: true,
-              Place: "Market"
+              Place:user.Address,
+              Indate:InDate
             },
           });
-          return NextResponse.json({ outpass, msg: "OutPass created!" },{ status: 200 });
+          return NextResponse.json({ outpass, msg: "Homepass created!" },{ status: 200 });
         } else {
           return NextResponse.json({ msg: "Hosttler doesn't exist" }, { status: 404 });
         }

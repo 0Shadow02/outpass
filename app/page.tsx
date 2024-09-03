@@ -1,4 +1,5 @@
 import Image from "next/image";
+import 'flowbite/dist/flowbite.min.js';
 
 export default function Home() {
   return (

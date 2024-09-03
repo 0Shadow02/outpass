@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Hostellers" ALTER COLUMN "Guardians_Pno" SET DATA TYPE BIGINT,
+ALTER COLUMN "Phone_number" SET DATA TYPE BIGINT;
