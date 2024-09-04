@@ -11,9 +11,6 @@ declare const globalThis: {
 } & typeof global;
 
 const prisma = globalThis.prismaGlobal ?? prismaClientSingleton()
-
-export default prisma
-
 if (process.env.NODE_ENV !== 'production') globalThis.prismaGlobal = prisma
 
 
@@ -27,13 +24,24 @@ export async function POST(req:NextRequest){
             Rollno: rollNo,
           },
         });
-    
         if (user) {
+         const Alreadyexist = await prisma.outpass.findUnique({
+          where:{
+            id:user.id,
+            rollNo:rollNo
+          }
+         })
+         if (Alreadyexist) {
+          return NextResponse.json({msg:"Outpass Already exist"},{status:400})
+         }
           const outpass = await prisma.outpass.create({
             data: {
               userId: user.id,
               rollNo: user.Rollno,
               Name: user.Name,
+              Address:user.Address,
+              Phone_number:user.Phone_number,
+              Guardians_Pno:user.Guardians_Pno,
               StartTime: new Date(),
               valid: true,
               Place: "Market"

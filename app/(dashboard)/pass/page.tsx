@@ -4,11 +4,11 @@ import { useRouter, useSearchParams } from "next/navigation";
 export default function Pass() {
     const navigate = useRouter();
     const searchParams = useSearchParams();
-    const rollNo = searchParams.get('rollNo')
+    const rollNo = searchParams.get('rollNo');
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-gray-900 to-gray-700">
-            <div className="bg-gray-800 border border-gray-600 rounded-lg shadow-lg p-6 max-w-md w-full mx-4">
+        <div className="flex justify-center items-start min-h-screen bg-gradient-to-r from-gray-900 to-gray-700 pt-10">
+            <div className="bg-gray-800 border border-gray-600 rounded-lg shadow-lg p-6 max-w-md w-full mx-4 mt-36"> 
                 <h1 className="text-2xl font-bold text-green-300 mb-4">Select Your Pass</h1>
                 <div className="flex space-x-4">
                     <button

@@ -2,20 +2,20 @@ import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from '@prisma/client';
 
 const prismaClientSingleton = () => {
-  return new PrismaClient();
-};
+  return new PrismaClient()
+}
 
 declare const globalThis: {
   prismaGlobal: ReturnType<typeof prismaClientSingleton>;
 } & typeof global;
 
-const prisma = globalThis.prismaGlobal ?? prismaClientSingleton();
+const prisma = globalThis.prismaGlobal ?? prismaClientSingleton()
 
-if (process.env.NODE_ENV !== 'production') {
-  globalThis.prismaGlobal = prisma;
-}
+export default prisma
 
-export { prisma }; // Named export for the Prisma client
+if (process.env.NODE_ENV !== 'production') globalThis.prismaGlobal = prisma
+
+export { prisma }; 
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
@@ -49,6 +49,8 @@ export async function POST(req: NextRequest) {
 }
 export async function GET(req:NextRequest){
   const rollNo = req.headers.get('rollNumber') || ""
+
+  
   try {
     const user = await prisma.hostellers.findFirst({
       where:{
@@ -58,13 +60,9 @@ export async function GET(req:NextRequest){
     if (!user) {
       return NextResponse.json("Hosteller doesn't exist")
     }
+    return NextResponse.json(user)
   } catch (error) {
     return NextResponse.json({ error: "Error: " + error }, { status: 500 });
   }
-  const user = await prisma.hostellers.findFirst({
-    where:{
-      Rollno:rollNo
-    }
-  })
-  return NextResponse.json(user)
+ 
 }

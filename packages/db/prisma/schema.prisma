@@ -25,27 +25,34 @@ model Hostellers {
   Name         String     @unique
   Rollno       String
   Address      String
-  Phone_number  BigInt     @unique
-  Guardians_Pno BigInt    @unique
+  Phone_number  String     @unique
+  Guardians_Pno String    @unique
   outpass      outpass[]
   homepass     homepass[]
 }
 
 model outpass {
   id         Int     @id @default(autoincrement())  
-  Name       String
-  rollNo     String
+  Name       String  
+  rollNo     String  
   userId     Int 
-  valid      Boolean @default(false)
+  Address      String
+  Phone_number  String     
+  Guardians_Pno String    
   StartTime  DateTime
   Place      String
+  valid      Boolean @default(false)
+  expired    Boolean @default(false)
   hostellers Hostellers @relation(fields: [userId], references: [id])    
 }
 model homepass {
   id         Int     @id @default(autoincrement())  
-  Name       String
+  Name       String  
   rollNo     String
   userId     Int 
+  Address      String
+  Phone_number  String     
+  Guardians_Pno String   
   valid      Boolean @default(false)
   StartTime  DateTime
   Indate     DateTime
