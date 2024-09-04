@@ -1,5 +1,4 @@
 
-
 import { PrismaClient } from '@prisma/client'
 const prismaClientSingleton = () => {
     return new PrismaClient()
@@ -14,18 +13,16 @@ const prismaClientSingleton = () => {
   
   if (process.env.NODE_ENV !== 'production') globalThis.prismaGlobal = prisma
 
-export async function updateExpired() {  
+  export async function updateExpired() {  
     try {  
         const currentTime = new Date();  
         const currentHour = currentTime.getHours();  
 
-        if (currentHour >= 20) {   
+        // Check if the current hour is before 1 AM
+        if (currentHour >= 20 || currentHour < 1) {   
             await prisma.outpass.updateMany({  
                 where: {  
                     valid: true,   
-                    StartTime: {  
-                        lte: new Date(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate(), 20),   
-                    }  
                 },  
                 data: {  
                     expired: true   
