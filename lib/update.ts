@@ -18,7 +18,6 @@ const prismaClientSingleton = () => {
         const currentTime = new Date();  
         const currentHour = currentTime.getHours();  
 
-        // Check if the current hour is before 1 AM
         if (currentHour >= 20 || currentHour < 1) {   
             await prisma.outpass.updateMany({  
                 where: {  
