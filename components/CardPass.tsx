@@ -51,6 +51,7 @@ export const CardPass = ({ rollNumber, type }: CardProps) => {
             if (type==="outpass") {
                 try {
                    await axios.post(`http://localhost:3000/api/outpass?rollNo=${rollNumber}`)
+                   await axios.post(`http://localhost:3000/api/mailer/outpass?rollNo=${rollNumber}`)
                    navigate.push(`/pass/outpass/created?rollNo=${rollNumber}`)
                 } catch (error) {
                     return error
@@ -63,6 +64,7 @@ export const CardPass = ({ rollNumber, type }: CardProps) => {
                             Indate:Indate
                         }
                     })
+                    await axios.post(`http://localhost:3000/api/mailer/homepass?rollNo=${rollNumber}`)
                     navigate.push(`/pass/homepass/created?rollno=${rollNumber}`)
 
                 } catch (error) {

@@ -24,16 +24,7 @@ export async function POST(req:NextRequest){
             Rollno: rollNo,
           },
         });
-        if (user) {
-         const Alreadyexist = await prisma.outpass.findUnique({
-          where:{
-            id:user.id,
-            rollNo:rollNo
-          }
-         })
-         if (Alreadyexist) {
-          return NextResponse.json({msg:"Outpass Already exist"},{status:400})
-         }
+       if(user){
           const outpass = await prisma.outpass.create({
             data: {
               userId: user.id,
@@ -48,6 +39,44 @@ export async function POST(req:NextRequest){
             },
           });
           return NextResponse.json({ outpass, msg: "OutPass created!" },{ status: 200 });
+        } else {
+          return NextResponse.json({ msg: "Hosttler doesn't exist" }, { status: 404 });
+        }
+      } catch (error) {
+        return NextResponse.json({ error: "Error: " + error }, { status: 500 });
+      }
+}
+
+export async function GET(req:NextRequest){
+    const { searchParams } = new URL(req.url);
+    const rollNo = searchParams.get('rollNo')||"";
+    const today = new Date();
+    const startOfDay = new Date(today.setHours(0, 0, 0, 0));
+    const endOfDay = new Date(today.setHours(23, 59, 59, 999));
+     try {
+        const user = await prisma.hostellers.findFirst({
+          where: {
+            Rollno: rollNo,
+          },
+        });
+        if (user) {
+         const Alreadyexist = await prisma.outpass.findFirst({
+          where:{
+            userId:user.id,
+            rollNo:rollNo,
+            StartTime: {
+              gte: startOfDay,
+              lte: endOfDay,
+          }
+          }
+         })
+         if (Alreadyexist) {
+          return NextResponse.json({Alreadyexist},{status:200})
+         }
+         else{
+          return NextResponse.json("No outpass found",{status:200})
+         }
+          
         } else {
           return NextResponse.json({ msg: "Hosttler doesn't exist" }, { status: 404 });
         }
