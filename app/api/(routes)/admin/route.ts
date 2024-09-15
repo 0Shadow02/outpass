@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from '@prisma/client'
-import { send } from "process";
+
 
 const prismaClientSingleton = () => {
   return new PrismaClient()

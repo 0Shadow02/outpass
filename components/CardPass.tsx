@@ -90,6 +90,8 @@ export const CardPass = ({ rollNumber, type }: CardProps) => {
         );
     }
 
+
+    
     return (  
         <div className="flex justify-center items-start min-h-screen bg-gradient-to-r from-gray-900 to-gray-700 pt-10">  
             <div className="bg-gray-800 border border-gray-600 rounded-lg shadow-lg p-6 max-w-md w-full mx-4">  
@@ -102,9 +104,16 @@ export const CardPass = ({ rollNumber, type }: CardProps) => {
                     <p><strong>Place:</strong> {type==="homepass"?"Home":"Market"}</p>  
                     <p><strong>Phone:</strong> {user.Phone_number}</p>  
                     <p><strong>Guardian`s:</strong> {user.Guardians_Pno}</p>   
-                    <p><strong>Created at:</strong> {new Date().toLocaleString()}</p>   
+                    <p><strong>Created at:</strong> {new Date().toLocaleString('en-GB', {
+                                day: '2-digit',
+                                month: '2-digit',
+                                year: 'numeric',
+                                hour: '2-digit',
+                                minute: '2-digit',
+                                hour12: true
+                            })}</p>   
                     {type === "outpass" && (  
-                        <p><strong>Valid .upto:</strong> {new Date().toLocaleDateString()},   8PM</p>
+                        <p><strong>Valid .upto:</strong> {new Date().toLocaleDateString('en-GB')},   8PM</p>
                     )}  
                     {type === "homepass" && (  
                         <div className="mb-4">  

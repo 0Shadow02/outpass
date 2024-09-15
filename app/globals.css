@@ -57,5 +57,25 @@
     --chart-5: 340 75% 55%
   }
 }
+@layer utilities {
+  /* Act as a border */
+  .card-wrapper {
+    @apply relative overflow-hidden rounded-xl bg-gradient-to-b from-slate-700 to-slate-800;
+  }
 
+  /* Gradient */
+  .card-wrapper::before {
+    background: conic-gradient(
+      rgba(34, 197, 94, 0.4) 0deg,   
+      rgba(34, 197, 94, 0.4) 50deg,
+      transparent 250deg
+    );
 
+    @apply absolute left-[-25%] top-[-25%] h-[150%] w-[150%] animate-border-spin content-[''];
+  }
+
+  /* Body */
+  .card-content {
+    @apply absolute left-[1px] top-[1px] h-[calc(100%-2px)] w-[calc(100%-2px)] rounded-xl bg-gradient-to-b from-slate-800 to-slate-900;
+  }
+}

@@ -1,16 +1,12 @@
-"use client";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation"; 
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 
-export default function Home() {
-  const router = useRouter(); 
-
-  useEffect(() => {
-    router.push('/dashboard');
-
-  }, [router]); 
-
-  return <div>
-
-  </div>
+export default async function Home() {
+  const session = await getServerSession();
+  if (session?.user) {
+    redirect('/dashboard')
+  } else {
+    
+    redirect('/api/auth/signin')
+}
 }

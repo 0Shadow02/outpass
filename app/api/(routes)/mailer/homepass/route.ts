@@ -10,8 +10,7 @@ const prismaClientSingleton = () => {
   } & typeof global;
   
   const prisma = globalThis.prismaGlobal ?? prismaClientSingleton()
-  
-  export default prisma
+ 
   
   if (process.env.NODE_ENV !== 'production') globalThis.prismaGlobal = prisma
   
@@ -30,7 +29,10 @@ const prismaClientSingleton = () => {
         where:{
             userId:user.id
 
-         }
+         },
+         orderBy: {
+          StartTime: 'desc'
+        }
     })
      
         if(homePass){
@@ -45,9 +47,16 @@ const prismaClientSingleton = () => {
             Address: ${homePass?.Address}
             Phone: ${homePass?.Phone_number}
             Guardian's Phone: ${homePass?.Guardians_Pno}
-            Valid From: ${homePass?.StartTime.toLocaleString()}
+            Valid From: ${homePass?.StartTime.toLocaleString('en-GB', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true
+            })}
             Place: ${homePass?.Place}
-            Indate: ${homePass?.Indate.toLocaleString()}
+            Indate: ${homePass?.Indate.toLocaleString('en-GB')}
         `;
         const html = `
             <div style="background-color: #2d3748; color: #cbd5e0; border-radius: 8px; padding: 20px; max-width: 400px; margin: auto;">
@@ -57,9 +66,17 @@ const prismaClientSingleton = () => {
                 <p><strong>Address:</strong> ${homePass?.Address}</p>
                 <p><strong>Phone:</strong> ${homePass?.Phone_number}</p>
                 <p><strong>Guardian's Phone:</strong> ${homePass?.Guardians_Pno}</p>
-                <p><strong>Valid From:</strong> ${homePass?.StartTime.toLocaleString()}</p>
+                <p><strong>Valid From:</strong> ${homePass?.StartTime.toLocaleString('en-GB', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: true
+                })}</p>
                 <p><strong>Place:</strong> ${homePass?.Place}</p>
-                <p><strong>Indate:</strong> ${homePass?.Indate.toLocaleString()}</p>
+                <p><strong>Indate:</strong> ${homePass?.Indate.toLocaleDateString('en-GB')}</p>
+
             </div>
         `;
 

@@ -1,11 +1,14 @@
 "use client";
 
+import { signIn, signOut } from "next-auth/react";
+import Link from "next/link";
 import { useState } from "react";
 
 export const Appbar = () => {
   return (
     <div className="b flex justify-between bg-gray-900 py-2 px-10">
-      <div className="text-2xl font-semibold text-green-300">OutPass</div>
+      <Link href={'/dashboard'}><div className="text-2xl font-semibold text-green-300">OutPass</div> </Link>
+      
       <div className="flex">
         <Sidebar />
       </div>
@@ -45,9 +48,10 @@ const Sidebar = () => {
         <div className="flex items-center">
           <div className="absolute transform -translate-x-40 translate-y-2/3 z-10 my-4 text-base list-none bg-gray-800 divide-y divide-gray-600 rounded shadow-lg shadow-gray-500 min-w-44">
             <div className="px-4 py-3" role="none">
-              <p className="text-md text-green-300 cursor-pointer" role="none">
+              <button onClick={()=>signOut()} className="text-md text-green-300 cursor-pointer" role="none">
                 Logout
-              </p>
+              </button>
+              
             </div>
           </div>
         </div>

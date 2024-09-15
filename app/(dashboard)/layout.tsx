@@ -1,33 +1,29 @@
 import { Appbar } from "@/components/Appbar";
 import { SidebarItem } from "@/components/Sidebar";
 
-
-
 export default function Layout({
   children,
 }: {
   children: React.ReactNode;
 }): JSX.Element {
   return (
-    <div className="overflow-hidden h-screen"> {/* Added h-screen */}
+    <div className="overflow-hidden h-screen bg-black text-slate-300"> 
       <Appbar />
-      <div className="flex h-full"> {/* Changed min-h-screen to h-full */}
+      <div className="flex h-full"> 
         <div className="flex flex-1">
-          <div className="w-72 border-r border-gray-600 bg-gray-800 pt-28">
+          <div className="w-72 border-r border-slate-700 bg-gray-800 pt-28">
             <div>
               <SidebarItem href={"/dashboard"} icon={<Enteries />} title="Entries" />
               <SidebarItem href={"/today"} icon={<Today />} title="Today" />
               <SidebarItem href={"/absent"} icon={<Absent />} title="Absent" />
             </div>
           </div>
-          <div className="flex-1 bg-gray-900 overflow-hidden">{children}</div> {/* Ensure overflow is hidden */}
+          <div className="flex-1 bg-gray-900 overflow-hidden">{children}</div> 
         </div>
       </div>
     </div>
   );
 }
-
-// ... (rest of your component code remains unchanged)
 
 function Enteries() {
   return (

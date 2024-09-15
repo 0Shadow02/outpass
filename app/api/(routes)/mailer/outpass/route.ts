@@ -31,7 +31,9 @@ const prismaClientSingleton = () => {
      const outpass= await prisma.outpass.findFirst({
         where:{
             userId:user.id
-
+         },
+         orderBy:{
+            StartTime:'desc'
          }
     })
         if(outpass){
@@ -45,7 +47,14 @@ const prismaClientSingleton = () => {
             Address: ${outpass?.Address}
             Phone: ${outpass?.Phone_number}
             Guardian's Phone: ${outpass?.Guardians_Pno}
-            Valid From: ${outpass?.StartTime.toLocaleString()}
+            Valid From: ${outpass?.StartTime.toLocaleString('en-GB', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true
+            })}
             Place: ${outpass?.Place}
         `;
         const html = `
@@ -56,8 +65,15 @@ const prismaClientSingleton = () => {
                 <p><strong>Address:</strong> ${outpass?.Address}</p>
                 <p><strong>Phone:</strong> ${outpass?.Phone_number}</p>
                 <p><strong>Guardian's Phone:</strong> ${outpass?.Guardians_Pno}</p>
-                <p><strong>Valid From:</strong> ${outpass?.StartTime.toLocaleString()}</p>
-                <p><strong>Valid Upto:</strong> ${outpass.StartTime.toLocaleDateString()},   8PM</p>
+                <p><strong>Valid From:</strong> ${outpass?.StartTime.toLocaleString('en-GB', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: true
+                })}</p>
+                <p><strong>Valid Upto:</strong> ${outpass.StartTime.toLocaleDateString('en-GB')},   8 pm</p>
                 <p><strong>Place:</strong> ${outpass?.Place}</p>
             </div>
         `;

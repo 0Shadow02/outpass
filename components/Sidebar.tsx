@@ -9,7 +9,7 @@ export const SidebarItem = ({ href, title, icon }: { href: string; title: string
 
     return (
         <div
-            className={`flex items-center ${selected ? "text-[#6a51a6]" : "text-slate-500"} cursor-pointer p-2 pl-8`}
+            className={`relative flex items-center p-2 pl-8 transition-colors duration-200 ease-in-out ${selected ? "text-indigo-400 bg-black" : "text-slate-500 hover:bg-gray-700 hover:text-white"} cursor-pointer`}
             onClick={() => {
                 router.push(href);
             }}
@@ -17,9 +17,12 @@ export const SidebarItem = ({ href, title, icon }: { href: string; title: string
             <div className="pr-2">
                 {icon}
             </div>
-            <div className={`font-bold ${selected ? "text-[#6a51a6]" : "text-slate-500"}`}>
+            <div className={`font-bold text-lg ${selected ? "text-indigo-400" : "text-slate-500"}`}>
                 {title}
             </div>
+            {selected && (
+                <div className="absolute left-0 top-0 h-full w-1 bg-indigo-400 shadow-lg transition-shadow duration-300 glow-effect"></div>
+            )}
         </div>
     );
 };
